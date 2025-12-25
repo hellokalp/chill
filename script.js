@@ -1,19 +1,30 @@
-// Smooth fade-up animation on scroll
-const faders = document.querySelectorAll('.fade-up');
-const options = { threshold: 0.2 };
-
-const appearOnScroll = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    entry.target.style.opacity = 1;
-    entry.target.style.transform = 'translateY(0)';
-    observer.unobserve(entry.target);
-  });
-}, options);
-
-faders.forEach(fader => {
-  fader.style.opacity = 0;
-  fader.style.transform = 'translateY(40px)';
-  fader.style.transition = 'opacity 1s ease, transform 1s ease';
-  appearOnScroll.observe(fader);
+/* script.js */
+// Loader Animation
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.loader-wrapper');
+    loader.classList.add('loader-hidden');
+    loader.addEventListener('transitionend', () => {
+        document.body.removeChild(loader);
+    });
 });
+
+// Mobile Navigation Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
+
+// Scroll Animations (Intersection Observer)
+const observerOptions = { threshold: 0.15 };
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
