@@ -20,11 +20,48 @@ body {
 }
 
 /* --- 1. Advanced Navbar --- */
+/* --- 1. Advanced Navbar (FIXED) --- */
 .navbar {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1.2rem 2rem; position: fixed; top: 0; width: 100%;
-  background: transparent; z-index: 1000;
-  transition: var(--transition);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem; /* More spacing */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: transparent;
+  z-index: 1000;
+  transition: all 0.4s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(15, 39, 71, 0.9); /* Darker background when scrolling */
+  backdrop-filter: blur(15px);
+  padding: 1rem 3rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem; /* Fixes the squashed text */
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #ffffff; /* Forces white text */
+  font-size: 1.1rem;
+  font-weight: 500;
+  position: relative;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #22d3ee; /* Cyan hover color */
+  opacity: 1;
+  transform: translateY(-2px);
+}
 }
 
 .navbar.scrolled {
@@ -57,8 +94,15 @@ body {
 
 /* --- 2. Interactive Hero --- */
 .hero { 
-  position: relative; height: 100vh; display: flex; 
-  align-items: center; justify-content: center; text-align: center; overflow: hidden;
+  position: relative; 
+  height: 100vh; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+  /* Better fallback gradient if video fails */
+  background: radial-gradient(circle at 50% 30%, #1e3a8a 0%, #0f2747 60%, #000000 100%);
+}
 }
 .hero-video { 
   position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
@@ -123,27 +167,55 @@ body {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; perspective: 1000px; }
+/* --- 4. 3D Cards & Grid (ENHANCED) --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  padding: 2rem;
+  perspective: 1000px; /* Essential for 3D effect */
+}
 
 .card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px; padding: 1.5rem;
-  transition: transform 0.1s ease, box-shadow 0.3s ease; /* Fast transform for JS tilt */
-  position: relative; overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2rem;
+  transition: transform 0.1s ease-out; /* Super smooth movement */
+  position: relative;
+  overflow: hidden;
   transform-style: preserve-3d;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* Card internal shine */
+/* Internal Spotlight Effect */
 .card::after {
-  content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  border-radius: 20px;
-  background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
-  opacity: 0; transition: opacity 0.5s; pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(34, 211, 238, 0.15), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+  z-index: 3;
 }
+
 .card:hover::after { opacity: 1; }
-.card img { width: 100%; border-radius: 12px; margin-bottom: 1.5rem; transform: translateZ(20px); }
-.card h3 { font-size: 1.5rem; color: white; margin-bottom: 0.5rem; transform: translateZ(30px); }
+
+/* Text depth effect */
+.card img {
+  width: 100%;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+  transform: translateZ(20px); /* Image pops out */
+}
+.card h3 {
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 0.5rem;
+  transform: translateZ(30px); /* Title pops out more */
+}
 .card p { color: #94a3b8; line-height: 1.6; transform: translateZ(20px); }
 
 /* --- 5. Scroll Animations --- */
